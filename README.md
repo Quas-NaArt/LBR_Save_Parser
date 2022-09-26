@@ -1,5 +1,5 @@
 # LBR_Save_Parser
-A script to parse Leaf Blower Revolution save files for relevant information, and output them as a CSV for use in associated community calculator spreadsheets.
+A script to parse Leaf Blower Revolution save files for relevant information, and output them as a CSV for use in associated community calculator spreadsheets, especially [my own, which drove the script's philosophy](https://docs.google.com/spreadsheets/d/1eCzTBhnAnHP1upOT-iR7LqM1t-NUKFZiySDvdV-LeFE/edit#gid=1969717219).
 
 ## Usage
 By default, the game saves to `%localappdata%/blow_the_leaves_away/save.dat` in binary-encoded base64, so the script reads from that location and decodes it before working. The data is processed and organized, and the output is saved to LBR_Save.csv on your Windows Desktop.
