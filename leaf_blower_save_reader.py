@@ -223,6 +223,18 @@ class LeafParser:
                     "current_weapon_key",
                 ],
             },
+            "average/second": {
+                "layer": [
+                    "profiles",
+                    "def",
+                    "objects",
+                    "o_game",
+                    "data",
+                    "stats",
+                    "resources_collected_avg",
+                ],
+                "targets": self._leaves,
+            },
         }
         fileappend(self.out_file, "STAT\tVALUE\n")
         for combo in combinations:
@@ -359,8 +371,8 @@ class LeafParser:
         "sacred",
         "biotite",
         "malachite",
-        "plasma",
         "hematite",
+        "plasma",
         "amber",
         "amethyst",
         "emerald",
