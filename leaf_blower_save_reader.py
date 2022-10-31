@@ -2,6 +2,7 @@ from base64 import b64decode
 from datetime import datetime
 from json import loads
 import os
+import platform
 
 
 """
@@ -382,13 +383,43 @@ class LeafParser:
         "tektite",
     ]
 
+LBR_STEAM_APP_ID = "1468260"
+
+def save_path():
+    system = platform.system()
+
+    if system == 'Windows':
+        base_path = os.getenv("LOCALAPPDATA")
+    elif system == 'Linux':
+        home = os.getenv("XDG_DATA_HOME")
+        if home is None:
+            home = os.path.join(os.getenv("HOME"), ".local", "share")
+
+        # Steam uses a simulated windows C drive to run Leaf Blower Revolution on linux.
+        base_path = os.path.join(home, 'Steam', 'steamapps', 'compatdata', LBR_STEAM_APP_ID, 'pfx', 'drive_c', 'users', 'steamuser', 'AppData', 'Local')
+    else:
+        raise RuntimeError(f'Unknown platform {system=}')
+
+    return os.path.join(base_path, 'blow_the_leaves_away', 'save.dat')
+
+
+def out_file_path():
+    system = platform.system()
+
+    if system == 'Windows':
+        home = os.getenv("USERPROFILE")
+    elif system == 'Linux':
+        home = os.getenv("HOME")
+    else:
+        raise RuntimeError(f'Unknown platform {system=}')
+
+    return os.path.join(home, 'Desktop', 'LBR_Save.csv')
+
 
 def main():
-    save_file = os.path.join(
-        os.getenv("LOCALAPPDATA"), "blow_the_leaves_away", "save.dat"
-    )
+    save_file = save_path()
     print("Using save file at: ", save_file)
-    out_file = os.path.join(os.getenv("USERPROFILE"), "Desktop", "LBR_Save.csv")
+    out_file = out_file_path()
     print("Exporting results to: ", out_file)
     save_contents, contents_hash = decode_save(save_file)
     message = "Hash of save: " + str(contents_hash) + "\n"
