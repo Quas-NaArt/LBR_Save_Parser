@@ -235,6 +235,14 @@ class LeafParser:
                 ],
                 "targets": self._leaves,
             },
+            "halloween": {
+                "layer":[
+                    "profiles",
+                    "def",
+                    "enemies",
+                    "boss_cursed_cheese"],
+                "targets": ["defeated"],
+            },
         }
         fileappend(self.out_file, "STAT\tVALUE\n")
         for combo in combinations:
