@@ -431,8 +431,13 @@ def main():
     print("Exporting results to: ", out_file)
     save_contents, contents_hash = decode_save(save_file)
     message = "Hash of save: " + str(contents_hash) + "\n"
-    with open(out_file, "w") as file:
-        file.write(message)
+    try:
+        with open(out_file, "w") as file:
+            file.write(message)
+    except:
+        out_file=out_file[0:-20]+"OneDrive\\"+out_file[-20:]
+        with open(out_file, "w") as file:
+            file.write(message)
     message = "Time of export: " + str(datetime.now()) + "\n"
     fileappend(out_file, message)
 
